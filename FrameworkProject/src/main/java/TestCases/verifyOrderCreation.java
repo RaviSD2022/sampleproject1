@@ -8,6 +8,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -48,6 +49,7 @@ public void test()
 	driver.findElement(By.xpath("//*[@placeholder='Owner/Seller']")).sendKeys("Ravi");
 	
 	driver.findElement(By.xpath("//*[@id='search-box']")).sendKeys("3485 Wineville");
+	driver.findElement(By.xpath("//*[@id='Property_Order_Number']")).sendKeys("RavikumarSD 14/07/1976");
 	
 	driver.findElement(By.xpath("//*[@id='search-box']")).sendKeys(Keys.SHIFT);
 	driver.findElement(By.xpath("//*[@id='search-box']")).sendKeys(Keys.ARROW_DOWN);
@@ -76,8 +78,10 @@ public void test()
 	     robot.delay(90);
 	     robot.keyRelease(KeyEvent.VK_ENTER);
 	     
-	     robot.delay(8000);
-	
+	     robot.delay(10000);
+	     robot.keyPress(KeyEvent.VK_TAB);
+	     robot.delay(90);
+	     robot.keyRelease(KeyEvent.VK_TAB);
 	
 	driver.findElement(By.xpath("//*[contains(text(),'Upload Documents')]")).click();
 
@@ -86,7 +90,7 @@ public void test()
 	     Toolkit.getDefaultToolkit().getSystemClipboard().setContents(file2, null);
 
 	     
-	     robot.delay(5000);
+	     robot.delay(10000);
 
 	     robot.keyPress(KeyEvent.VK_CONTROL);
 	     robot.keyPress(KeyEvent.VK_V);
@@ -98,7 +102,10 @@ public void test()
 
 	     robot.delay(8000);
 	
-	
+	     robot.keyPress(KeyEvent.VK_TAB);
+	     robot.delay(90);
+	     robot.keyRelease(KeyEvent.VK_TAB);
+	     robot.delay(8000);
 	driver.findElement(By.xpath("//*[contains(text(),'Upload Documents')]")).click();
 
 	
@@ -120,6 +127,10 @@ public void test()
 	     robot.keyRelease(KeyEvent.VK_ENTER);
 
 	     robot.delay(10000);
+	     robot.keyPress(KeyEvent.VK_TAB);
+	     robot.delay(90);
+	     robot.keyRelease(KeyEvent.VK_TAB);
+	     robot.delay(8000);
 		     
 	} catch (AWTException e) {
 
@@ -133,42 +144,36 @@ public void test()
 //	driver.switchTo().alert().accept();
 	driver.findElement(By.xpath("//*[@id='conOk']")).click();
 	
+	
 	driver.findElement(By.xpath("//button[contains(text(),'Continue')]")).click();
 	
-	driver.findElement(By.xpath("//*[@id='mat-checkbox-1-input']")).click();
+	JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript("window.scrollBy(0,1000)");
+    js.executeScript("window.scrollBy(0,1000)");
+    js.executeScript("window.scrollBy(0,1000)");
+	
+    driver.findElement(By.xpath("//*[contains(text(),'Total')]")).click();
+
+  //  driver.findElement(By.xpath("//*[contains(text(),'Total')]")).sendKeys(Keys.TAB);
+    
+	driver.findElement(By.xpath("//div[@class='mat-checkbox-inner-container mat-checkbox-inner-container-no-side-margin']")).click();
+
 	
 	driver.findElement(By.xpath("//button[contains(text(),'Submit')]")).click();
 	
-	String OrderNum = driver.findElement(By.xpath("//*[@id='Order_ID]")).getText();
-	
+	String OrderNum = driver.findElement(By.xpath("//*[@id='Order_ID']")).getAttribute("ng-reflect-value");
+			
+	System.out.println(OrderNum);
 	driver.findElement(By.xpath("//*[@id='ordDetBtnSendMsg']")).click();
 	
 	driver.findElement(By.xpath("//*[@id='msg-area']")).sendKeys("Ravi"+OrderNum);
 	
-	driver.findElement(By.xpath("//*[@id='msgSend')]")).click();
+	driver.findElement(By.xpath("//*[@id='msgSend']")).click();
 	
 	driver.findElement(By.xpath("//*[@icon='arrow_drop_down']")).click();
 	
 	driver.findElement(By.xpath("//button[contains(text(),'Logout')]")).click();
 	
 	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
-
-
-
-	
-	
-	
-
 }
